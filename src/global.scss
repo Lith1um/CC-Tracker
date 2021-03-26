@@ -1,0 +1,23 @@
+:root {
+  --var-color-hover: #ececec;
+}
+
+.p-fixed {
+  position: fixed;
+}
+
+.z-999 {
+  z-index: 999;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.remove-link-styles {
+  color: inherit; /* blue colors for links too */
+}
