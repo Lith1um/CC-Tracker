@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "cctracker-123e2": {
+      "hosting": {
+        "CC-Tracker": [
+          "cctracker-123e2"
+        ]
+      }
+    }
+  }
+}
