@@ -8,7 +8,7 @@ import firebase from 'firebase/app';
   selector: 'cct-toolbar',
   template: `
     <mat-toolbar
-      class="p-fixed z-999 mat-elevation-z8" 
+      class="p-relative z-999 mat-elevation-z8"
       color="primary">
       <button mat-icon-button (click)="toggleMenu.emit()">
         <mat-icon>menu</mat-icon>

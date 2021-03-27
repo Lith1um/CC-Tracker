@@ -5,18 +5,22 @@
 // default theme:
 $primary: mat-palette($mat-indigo, 500);
 
+:host {
+  position: relative;
+  flex: 1;
+  overflow-y: auto;
+}
+
 .navigation {
 
   &__progress {
     position: absolute;
-    top: 64px;
+    top: 0;
     z-index: 999;
   }
 
   &__body {
-    position: absolute;
-    top: 64px;
-    height: calc(100% - 64px);
+    height: 100%;
     width: 100%;
   }
 
@@ -30,11 +34,26 @@ $primary: mat-palette($mat-indigo, 500);
   }
 
   &__footer {
+    &-holder {
+      height: 100px;
+      position: relative;
+    }
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(100% - 20px);
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
-    height: 100px;
+    padding: 40px 10px;
     background-color: mat-color($primary);
     color: white;
+
+    &-item {
+      padding-right: 16px;
+      margin-right: 16px;
+      border-right: 1px solid #fff;
+    }
   }
 }

@@ -3,13 +3,17 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { HomeComponent } from '@core/components';
+import { CurrenciesTableComponent, HomeComponent } from '@core/components';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     component: HomeComponent
+  },
+  {
+    path: 'markets',
+    component: CurrenciesTableComponent
   }
 ];
 

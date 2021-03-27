@@ -1,5 +1,5 @@
 // Angular
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   NavigationEnd,
   NavigationStart,
@@ -46,15 +46,18 @@ import { MenuItemModel } from '@core/models';
 
       <mat-sidenav-content class="overflow-hidden">
         <div class="navigation__content">
+          <!-- all page content renders here -->
           <router-outlet></router-outlet>
         </div>
-        <div class="navigation__footer">
-          <a class="remove-link-styles" href="https://nomics.com" target="_blank">
-            Crypto Market Cap & Pricing Data Provided By Nomics
-          </a>
-          <span>
-            &nbsp;| © Alex Rayner
-          </span>
+        <div class="navigation__footer-holder">
+          <div class="navigation__footer">
+            <a class="navigation__footer-item remove-link-styles" href="https://nomics.com" target="_blank">
+              Crypto Market Cap & Pricing Data Provided By Nomics
+            </a>
+            <span>
+              © Alex Rayner
+            </span>
+          </div>
         </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
@@ -70,23 +73,27 @@ export class NavigationComponent implements OnInit {
       icon: 'home',
       enabled: true,
       url: ''
+    },
+    {
+      name: 'Markets',
+      icon: 'auto_graph',
+      enabled: true,
+      url: 'markets'
     }
   ];
 
-  progressValue: number = 0;
-  showProgress: boolean = false;
+  progressValue = 0;
+  showProgress = false;
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     // handles faking a progress indicator whilst angular routing takes place
     this.router.events.subscribe((event: RouterEvent) => {
-      
       if (event instanceof NavigationStart) {
         // reset the progress bar
         this.progressValue = 0;
         this.showProgress = true;
-        
       } else if (event instanceof NavigationEnd) {
         // complete the bar and hide
         this.progressValue = 100;
