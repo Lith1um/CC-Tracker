@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'cct-root',
   template: `
-    <div>
-      CC-Tracker
-    </div>
+    <router-outlet></router-outlet>
   `
 })
 export class AppComponent {}

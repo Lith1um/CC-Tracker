@@ -26,6 +26,8 @@
     "@ngx-formly/core": "^5.0.0",
     "@ngx-formly/material": "^5.0.0",
     "@ngx-formly/schematics": "^5.10.15",
+    "ag-grid-angular": "^25.1.0",
+    "ag-grid-community": "^25.1.0",
     "firebase": "^7.0 || ^8.0",
     "rxjs": "^6.6.6",
     "tslib": "^2.0.0",

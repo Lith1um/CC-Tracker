@@ -7,5 +7,9 @@
         ]
       }
     }
+  },
+  "projects": {
+    "staging": "cctracker-123e2",
+    "default": "cctracker-123e2"
   }
 }

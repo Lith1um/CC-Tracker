@@ -1,0 +1,68 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// default theme:
+$primary: mat-palette($mat-indigo, 500);
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.navigation {
+  
+  &__progress {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+  }
+  
+  &__body {
+    flex: 1;
+    width: 100%;
+  }
+
+  &__menu {
+    min-width: 250px;
+  }
+
+  &__content {
+    margin: 50px 100px;
+    min-height: calc(100% - 200px);
+  }
+
+  &__footer {
+    &-holder {
+      height: 100px;
+      position: relative;
+    }
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(100% - 20px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px 10px;
+    background-color: mat-color($primary);
+    color: white;
+
+    &-item {
+      padding-right: 16px;
+      margin-right: 16px;
+      border-right: 1px solid #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navigation {
+    &__content {
+      margin: 50px 20px;
+    }
+  }
+}

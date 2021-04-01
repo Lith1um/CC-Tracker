@@ -1,33 +1,29 @@
 // Angular
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
-import { AngularFireModule } from '@angular/fire';
+
+// Modules
+import { CoreModule } from '@core/core.module';
+import { AppRoutingModule } from './app-routing.module';
 
 // Components
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { HttpClientModule } from '@angular/common/http';
 
-// env
-import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    // Routing
+    AppRoutingModule,
+
     BrowserModule,
     BrowserAnimationsModule,
-
-    // Firebase
-    AngularFireModule.initializeApp(environment.firebase),
-
-    StoreModule.forRoot({}, {}),
-
-    ReactiveFormsModule,
-    FormlyModule.forRoot()
+    HttpClientModule,
+    CoreModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-GB'}
