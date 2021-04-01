@@ -1,14 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavigationComponent } from '@core/components';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'cct-root',
   template: `
-    <cct-toolbar (toggleMenu)="navComponent.sidenav.toggle()"></cct-toolbar>
-    <cct-navigation></cct-navigation>
-  `,
-  styleUrls: ['./app.component.scss']
+    <router-outlet></router-outlet>
+  `
 })
-export class AppComponent {
-  @ViewChild(NavigationComponent) navComponent: NavigationComponent;
-}
+export class AppComponent {}

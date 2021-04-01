@@ -1,6 +1,6 @@
 // Angular
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 // Modules
@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { AngularFireModule } from '@angular/fire';
 import { StoreModule } from '@ngrx/store';
+import { AgGridModule } from 'ag-grid-angular';
 
 // Material
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +28,7 @@ import { environment } from 'src/environments/environment';
 
 // Components
 import {
+  CellPriceComponent,
   CurrenciesTableComponent,
   HomeComponent,
   NavigationComponent,
@@ -47,6 +49,10 @@ import { ValueIncreasedPipe } from './pipes';
     ReactiveFormsModule,
     FormlyModule.forRoot(),
 
+    AgGridModule.withComponents([
+      CellPriceComponent
+    ]),
+
     // Material
     MatButtonModule,
     MatDividerModule,
@@ -61,6 +67,7 @@ import { ValueIncreasedPipe } from './pipes';
     MatToolbarModule
   ],
   declarations: [
+    CellPriceComponent,
     CurrenciesTableComponent,
     HomeComponent,
     NavigationComponent,
@@ -69,7 +76,8 @@ import { ValueIncreasedPipe } from './pipes';
     ValueIncreasedPipe
   ],
   providers: [
-    NomicsService
+    NomicsService,
+    DatePipe
   ],
   exports: [
     NavigationComponent,

@@ -1,15 +1,22 @@
+// Angular
 import { AfterViewInit, Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { NomicsService } from '@core/services';
-
-import { CurrencyModel } from '@core/models';
-
-import { catchError, map, take } from 'rxjs/operators'
+// rxjs
+import { catchError, map, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+// Services
+import { NomicsService } from '@core/services';
+
+// Models
+import { CurrencyModel } from '@core/models';
+import { ICellRendererParams } from 'ag-grid-community';
+import { CellPriceComponent } from '../cell-price/cell-price.component';
+
 @Component({
-  selector: 'app-currencies-table',
+  selector: 'cct-currencies-table',
   template: `
     <div class="header">
       <span>Markets</span>
@@ -21,13 +28,13 @@ import { of } from 'rxjs';
 
     <div class="example-container">
 
-      <div 
+      <div
         class="example-loading-shade"
         *ngIf="isLoadingResults">
         <mat-spinner></mat-spinner>
       </div>
 
-      <table
+      <!-- <table
         *ngIf="!isLoadingResults"
         mat-table
         class="example-table"
@@ -69,20 +76,49 @@ import { of } from 'rxjs';
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+      </table> -->
+
+      <ag-grid-angular
+        class="ag-theme-material"
+        domLayout="autoHeight"
+        [suppressMovableColumns]="true"
+        [rowData]="currencies"
+        [columnDefs]="displayedColumns"
+        [frameworkComponents]="frameworkComponents"
+      >
+      </ag-grid-angular>
     </div>
   `,
   styleUrls: ['./currencies-table.component.scss']
 })
 export class CurrenciesTableComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['rank', 'name', 'currency', 'price', 'price_date'];
+  frameworkComponents = {
+    cellPriceComponent: CellPriceComponent,
+  };
+
+  displayedColumns = [
+    { field: 'rank' },
+    { field: 'name' },
+    { field: 'currency'},
+    {
+      field: 'price',
+      cellRenderer: 'cellPriceComponent',
+    },
+    {
+      field: 'price_timestamp',
+      valueFormatter: (data: ICellRendererParams) => {
+        return this.datePipe.transform(data.value, 'short');
+      }
+    }
+  ];
   isLoadingResults = true;
-  resultsLength: number = 0;
+  resultsLength = 0;
 
   currencies: CurrencyModel[];
 
   constructor(
+    private datePipe: DatePipe,
     private nomicsService: NomicsService,
     private snackBar: MatSnackBar) {}
 

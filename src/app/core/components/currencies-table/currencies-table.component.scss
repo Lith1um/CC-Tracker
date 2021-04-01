@@ -15,10 +15,6 @@
   }
 }
 
-table {
-  width: 100%;
-}
-
 .example-loading-shade {
   position: absolute;
   top: 0;
@@ -30,19 +26,4 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.example-rate-limit-reached {
-  color: #980000;
-  max-width: 360px;
-  text-align: center;
-}
-
-.price-change {
-  color: green;
-  vertical-align: bottom;
-
-  &--negative {
-    color: red;
-  }
 }

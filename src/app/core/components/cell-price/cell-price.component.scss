@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.price-change {
+  margin-right: 4px;
+  color: green;
+
+  &--negative {
+    color: red;
+  }
+}

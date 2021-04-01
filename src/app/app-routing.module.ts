@@ -3,17 +3,28 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Components
-import { CurrenciesTableComponent, HomeComponent } from '@core/components';
+import { CurrenciesTableComponent, HomeComponent, NavigationComponent } from '@core/components';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: HomeComponent
+    redirectTo: 'app'
   },
   {
-    path: 'markets',
-    component: CurrenciesTableComponent
+    path: 'app',
+    component: NavigationComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: HomeComponent
+      },
+      {
+        path: 'markets',
+        component: CurrenciesTableComponent
+      }
+    ]
   }
 ];
 

@@ -15,6 +15,9 @@ import { MenuItemModel } from '@core/models';
 @Component({
   selector: 'cct-navigation',
   template: `
+    <cct-toolbar (toggleMenu)="sidenav.toggle()">
+    </cct-toolbar>
+
     <mat-progress-bar
       *ngIf="showProgress"
       class="navigation__progress"
@@ -72,13 +75,13 @@ export class NavigationComponent implements OnInit {
       name: 'Home',
       icon: 'home',
       enabled: true,
-      url: ''
+      url: 'app'
     },
     {
       name: 'Markets',
       icon: 'auto_graph',
       enabled: true,
-      url: 'markets'
+      url: 'app/markets'
     }
   ];
 
