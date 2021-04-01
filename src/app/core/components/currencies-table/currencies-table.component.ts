@@ -21,7 +21,11 @@ import { CellPriceComponent } from '../cell-price/cell-price.component';
     <div class="header">
       <span>Markets</span>
 
-      <button mat-icon-button [disabled]="isLoadingResults" color="primary" (click)="getCurrencies()">
+      <button
+        mat-icon-button
+        color="primary"
+        [disabled]="isLoadingResults"
+        (click)="getCurrencies()">
         <mat-icon>refresh</mat-icon>
       </button>
     </div>
@@ -34,55 +38,13 @@ import { CellPriceComponent } from '../cell-price/cell-price.component';
         <mat-spinner></mat-spinner>
       </div>
 
-      <!-- <table
-        *ngIf="!isLoadingResults"
-        mat-table
-        class="example-table"
-        [dataSource]="currencies">
-        <ng-container matColumnDef="rank">
-          <th mat-header-cell *matHeaderCellDef>Rank</th>
-          <td mat-cell *matCellDef="let row">{{row.rank}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Currency</th>
-          <td mat-cell *matCellDef="let row">{{row.name}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="currency">
-          <th mat-header-cell *matHeaderCellDef>Currency</th>
-          <td mat-cell *matCellDef="let row">{{row.currency}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef>Price</th>
-          <td mat-cell *matCellDef="let row">
-            {{row.price}}
-
-            <mat-icon
-              class="price-change"
-              [class.price-change--negative]="!(row['1d'] | valueIncreased)">
-              {{ (row['1d'] | valueIncreased)
-                ? 'arrow_upward'
-                : 'arrow_downward' }}
-            </mat-icon>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="price_date">
-          <th mat-header-cell *matHeaderCellDef>Last Updated</th>
-          <td mat-cell *matCellDef="let row">{{row.price_timestamp | date : 'medium' }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table> -->
-
       <ag-grid-angular
         class="ag-theme-material"
         domLayout="autoHeight"
         [suppressMovableColumns]="true"
+        [suppressLoadingOverlay]="true"
         [rowData]="currencies"
+        [defaultColDef]="defaultColDef"
         [columnDefs]="displayedColumns"
         [frameworkComponents]="frameworkComponents"
       >
@@ -92,6 +54,10 @@ import { CellPriceComponent } from '../cell-price/cell-price.component';
   styleUrls: ['./currencies-table.component.scss']
 })
 export class CurrenciesTableComponent implements AfterViewInit {
+
+  defaultColDef = {
+    flex: 1
+  };
 
   frameworkComponents = {
     cellPriceComponent: CellPriceComponent,

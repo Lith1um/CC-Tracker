@@ -58,3 +58,11 @@ $primary: mat-palette($mat-indigo, 500);
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+  .navigation {
+    &__content {
+      margin: 50px 20px;
+    }
+  }
+}

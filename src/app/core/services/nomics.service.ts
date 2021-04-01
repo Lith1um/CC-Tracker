@@ -28,6 +28,6 @@ export class NomicsService {
         'per-page': '100',
         page: page.toString()
       }
-    })
+    });
   }
 }
