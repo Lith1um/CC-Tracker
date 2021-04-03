@@ -72,6 +72,7 @@ export class CurrenciesTableComponent implements AfterViewInit {
       cellRenderer: 'cellPriceComponent',
     },
     {
+      headerName: 'Last updated',
       field: 'price_timestamp',
       valueFormatter: (data: ICellRendererParams) => {
         return this.datePipe.transform(data.value, 'short');
