@@ -5,9 +5,10 @@ import { CurrencyChangeModel } from '@core/models';
   name: 'valueIncreased'
 })
 export class ValueIncreasedPipe implements PipeTransform {
-  transform(change: CurrencyChangeModel): boolean {
-    const priceChange = change?.price_change;
-
-    return parseFloat(priceChange) > 0 ?? false;
+  transform(change: number): boolean {
+    if (isNaN(change)) {
+      return;
+    }
+    return change > 0;
   }
 }
