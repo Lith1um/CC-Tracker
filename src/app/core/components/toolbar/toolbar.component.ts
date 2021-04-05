@@ -15,12 +15,11 @@ import firebase from 'firebase/app';
       </button>
       <span class="flex-1">CC Tracker</span>
 
-      <span
+      <button
         *ngIf="!auth"
-        matRipple
-        class="toolbar__button">
-        Login
-      </span>
+        mat-button>
+        Log in
+      </button>
     </mat-toolbar>
   `,
   styleUrls: ['./toolbar.component.scss']
