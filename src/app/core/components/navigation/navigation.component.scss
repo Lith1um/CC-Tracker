@@ -27,6 +27,16 @@ $primary: mat-palette($mat-indigo, 500);
 
   &__menu {
     min-width: 250px;
+
+    &-item {
+      &--active {
+        background-color: rgba(0,0,0,.08);
+
+        &:hover {
+          background-color: rgba(0,0,0,.12);
+        }
+      }
+    }
   }
 
   &__content {

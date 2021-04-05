@@ -36,7 +36,8 @@ import { MenuItemModel } from '@core/models';
             <a
               *ngIf="item.enabled"
               mat-list-item
-              routerLinkActive="active"
+              class="navigation__menu-item"
+              routerLinkActive="navigation__menu-item--active"
               [routerLinkActiveOptions]="{exact: true}"
               [routerLink]="'/' + item.url"
               (click)="sidenav.close()">
