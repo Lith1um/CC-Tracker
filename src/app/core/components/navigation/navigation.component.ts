@@ -22,7 +22,7 @@ import { MenuItemModel } from '@core/models';
   template: `
     <cct-toolbar
       [isLoggedIn]="authService.isLoggedIn"
-      [user]="authService.userData"
+      [user]="authService.user"
       (toggleMenu)="sidenav.toggle()"
       (logOut)="authService.logOut()">
     </cct-toolbar>

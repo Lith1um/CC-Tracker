@@ -1,11 +1,8 @@
 // Angular
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-// Firebase
-import firebase from 'firebase/app';
-
-// Services
-import { AuthService } from '@auth/services';
+// Models
+import { User } from '@auth/models';
 
 @Component({
   selector: 'cct-toolbar',
@@ -16,7 +13,7 @@ import { AuthService } from '@auth/services';
       <button mat-icon-button (click)="toggleMenu.emit()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="flex-1">CC Tracker</span>
+      <span class="flex-1 toolbar__title">CC Tracker</span>
 
       <ng-container *ngIf="isLoggedIn; else login">
         <cct-toolbar-user
@@ -38,7 +35,7 @@ export  class ToolbarComponent {
   isLoggedIn = false;
 
   @Input()
-  user: firebase.User;
+  user: User;
 
   @Output()
   toggleMenu: EventEmitter<void> = new EventEmitter<void>();

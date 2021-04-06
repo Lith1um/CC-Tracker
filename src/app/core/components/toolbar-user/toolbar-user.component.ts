@@ -7,15 +7,22 @@ import {
   Output
 } from '@angular/core';
 
-// Firebase
-import firebase from 'firebase/app';
+// Models
+import { User } from '@auth/models';
 
 @Component({
   selector: 'cct-toolbar-user',
   template: `
     <ng-container *ngIf="user">
       <button mat-button [matMenuTriggerFor]="userMenu">
-        {{ user.displayName || 'You' }}
+        <span class="user__name">{{ user.displayName || 'You' }}</span>
+        <img
+          *ngIf="user.photoURL; else icon"
+          class="user__profile"
+          [src]="user.photoURL"/>
+        <ng-template #icon>
+          <mat-icon>account_circle</mat-icon>
+        </ng-template>
       </button>
       <mat-menu #userMenu="matMenu" xPosition="before">
         <button mat-menu-item>
@@ -29,12 +36,13 @@ import firebase from 'firebase/app';
       </mat-menu>
     </ng-container>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./toolbar-user.component.scss']
 })
 export class ToolbarUserComponent {
 
   @Input()
-  user: firebase.User;
+  user: User;
 
   @Output()
   logOut: EventEmitter<void> = new EventEmitter<void>();

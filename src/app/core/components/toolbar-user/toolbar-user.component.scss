@@ -1,0 +1,13 @@
+.user {
+  &__name {
+    margin-right: 8px;
+  }
+
+  &__profile {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+  }
+}
