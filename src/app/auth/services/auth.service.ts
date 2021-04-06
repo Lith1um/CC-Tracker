@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+// rxjs
+import { switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+
 // Firebase
 import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -34,9 +38,19 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar) {
 
+    const userDoc = this.afAuth.authState.pipe(
+      switchMap((user: firebase.User): Observable<User> => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    );
+
     // Saving user data in local storage when
     // logged in and setting up null when logged out
-    this.afAuth.authState.subscribe(user => {
+    userDoc.subscribe((user: firebase.User) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -51,10 +65,10 @@ export class AuthService {
   logIn(email: string, password: string): void {
     this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.router.navigate(['dashboard']);
-        this.setUserData(result.user);
+        this.router.navigate(['']);
+        this.setUserData(result.user, 'Logged in');
       }).catch((error) => {
-        window.alert(error.message);
+        this.showMessage(error.message);
       });
   }
 
@@ -62,16 +76,19 @@ export class AuthService {
     this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.sendVerificationMail();
-        this.setUserData(result.user);
+        this.setUserData(
+          result.user,
+          'Account created! Please verify your account by following the link set to you via email'
+        );
       }).catch((error) => {
-        window.alert(error.message);
+        this.showMessage(error.message);
       });
   }
 
   async sendVerificationMail(): Promise<void> {
     (await this.afAuth.currentUser).sendEmailVerification()
       .then(() => {
-        this.router.navigate(['verify-email-address']);
+        this.router.navigate(['']);
       });
   }
 
@@ -91,31 +108,38 @@ export class AuthService {
   authLogin(provider): void {
     this.afAuth.signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['app']);
-        this.setUserData(result.user);
+        this.router.navigate(['']);
+        this.setUserData(result.user, 'Logged in');
       }).catch((error) => {
-        window.alert(error);
+        this.showMessage(error.message);
       });
   }
 
   // Setting up user data when sign in with username/password,
   // sign up with username/password and sign in with social auth
   // provider in Firestore database using AngularFirestore + AngularFirestoreDocument
-  setUserData(user): void {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+  setUserData(user: firebase.User, message: string): void {
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
       emailVerified: user.emailVerified
     };
+
+    // firestore doc will be overwritten, so don't set data that could be null
+    if (user.displayName) {
+      userData.displayName = user.displayName;
+    }
+    if (user.photoURL) {
+      userData.photoURL = user.photoURL;
+    }
 
     userRef.set(userData, {
       merge: true
     });
 
-    this.showMessage('Logged in');
+    this.showMessage(message);
   }
 
   showMessage(message: string): void {

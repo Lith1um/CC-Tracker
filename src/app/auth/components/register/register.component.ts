@@ -1,6 +1,6 @@
 // Angular
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 // Formly
 import { FormlyFieldConfig } from '@ngx-formly/core';
@@ -9,9 +9,9 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { AuthService } from '@auth/services';
 
 @Component({
-  selector: 'cct-login',
+  selector: 'cct-register',
   template: `
-    <h1>Log in to your account</h1>
+    <h1>Register your account</h1>
 
     <form
       [formGroup]="form"
@@ -28,27 +28,27 @@ import { AuthService } from '@auth/services';
           color="primary"
           type="submit"
         >
-          Login
+          Register
         </button>
       </div>
     </form>
 
-    <div class="login__auth">
+    <div class="register__auth">
       <button
         mat-raised-button
         color="warn"
-        class="login__auth-button"
+        class="register__auth-button"
         (click)="authService.googleAuth()"
       >
-        <span>Login with Google</span>
+        <span>Sign up with Google</span>
       </button>
 
-      <p>No account yet? <a routerLink="/app/register">Create an account</a></p>
+      <p>Already registered? <a routerLink="/app/login">Log in</a></p>
     </div>
   `,
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   form: FormGroup;
   fields: FormlyFieldConfig[] = [
@@ -64,13 +64,36 @@ export class LoginComponent implements OnInit {
       }
     },
     {
-      key: 'password',
-      type: 'input',
-      templateOptions: {
-        type: 'password',
-        label: 'Password',
-        required: true,
-      }
+      validators: {
+        validation: [
+          {
+            name: 'fieldMatch',
+            options: { errorPath: 'passwordConfirm' }
+          },
+        ],
+      },
+      fieldGroup: [
+        {
+          key: 'password',
+          type: 'input',
+          templateOptions: {
+            type: 'password',
+            label: 'Password',
+            required: true,
+            minLength: 8
+          },
+        },
+        {
+          key: 'passwordConfirm',
+          type: 'input',
+          templateOptions: {
+            type: 'password',
+            label: 'Confirm Password',
+            placeholder: 'Please re-enter your password',
+            required: true,
+          },
+        }
+      ]
     }
   ];
 
@@ -93,7 +116,7 @@ export class LoginComponent implements OnInit {
     const email = this.form.get('email').value;
     const password = this.form.get('password').value;
 
-    this.authService.logIn(email, password);
+    this.authService.register(email, password);
   }
 
 }

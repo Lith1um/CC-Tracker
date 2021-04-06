@@ -15,7 +15,7 @@ import firebase from 'firebase/app';
   template: `
     <ng-container *ngIf="user">
       <button mat-button [matMenuTriggerFor]="userMenu">
-        {{ user.displayName }}
+        {{ user.displayName || 'You' }}
       </button>
       <mat-menu #userMenu="matMenu" xPosition="before">
         <button mat-menu-item>

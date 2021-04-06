@@ -26,7 +26,6 @@ import { AuthService } from '@auth/services';
       </ng-container>
 
       <ng-template #login>
-        <a mat-button routerLink="/app/register">Register</a>
         <a mat-button routerLink="/app/login">Log in</a>
       </ng-template>
     </mat-toolbar>

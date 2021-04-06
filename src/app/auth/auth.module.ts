@@ -1,6 +1,7 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Material
@@ -19,17 +20,32 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AuthService } from '@auth/services';
 
 // Components
-import { LoginComponent } from '@auth/components';
+import { LoginComponent, RegisterComponent } from '@auth/components';
+
+// Validation
+import {
+  emailValidator,
+  emailValidatorMessage,
+  fieldMatchValidator,
+  minlengthValidationMessage
+} from '@core/validation';
 
 @NgModule({
   imports: [
+    RouterModule,
     CommonModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
     FormlyModule.forRoot({
+      validators: [
+        { name: 'fieldMatch', validation: fieldMatchValidator },
+        { name: 'email', validation: emailValidator }
+      ],
       validationMessages: [
         { name: 'required', message: 'This field is required' },
+        { name: 'minlength', message: minlengthValidationMessage },
+        { name: 'email', message: emailValidatorMessage },
       ],
     }),
     FormlyMaterialModule,
@@ -39,7 +55,8 @@ import { LoginComponent } from '@auth/components';
     MatSnackBarModule
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     AuthService
