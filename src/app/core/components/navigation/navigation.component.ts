@@ -24,21 +24,22 @@ import { MenuItemModel } from '@core/models';
       [isLoggedIn]="authService.isLoggedIn"
       [user]="authService.user"
       (toggleMenu)="sidenav.toggle()"
-      (logOut)="authService.logOut()">
-    </cct-toolbar>
+      (logOut)="authService.logOut()"
+    ></cct-toolbar>
 
     <mat-progress-bar
       *ngIf="showProgress"
       class="navigation__progress"
       color="warn"
-      [value]="progressValue">
-    </mat-progress-bar>
+      [value]="progressValue"
+    ></mat-progress-bar>
 
     <mat-sidenav-container class="navigation__body">
       <mat-sidenav
         class="navigation__menu"
         mode="push"
-        [autoFocus]="false">
+        [autoFocus]="false"
+      >
         <mat-nav-list>
           <div mat-subheader>Pages</div>
           <ng-container *ngFor="let item of menuItems">
@@ -49,12 +50,35 @@ import { MenuItemModel } from '@core/models';
               routerLinkActive="navigation__menu-item--active"
               [routerLinkActiveOptions]="{exact: true}"
               [routerLink]="'/' + item.url"
-              (click)="sidenav.close()">
+              (click)="sidenav.close()"
+            >
               <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
               <div mat-line>{{item.name}}</div>
             </a>
           </ng-container>
         </mat-nav-list>
+
+        <div class="navigation__menu-footer">
+          <button
+            *ngIf="authService.isLoggedIn; else login"
+            mat-button
+            (click)="logOut()"
+          >
+            <mat-icon>logout</mat-icon>
+            <span class="ml-1">Log out</span>
+          </button>
+
+          <ng-template #login>
+            <a
+              mat-button
+              routerLink="/app/login"
+              (click)="sidenav.close()"
+            >
+              <mat-icon>login</mat-icon>
+              <span class="ml-1">Log in</span>
+            </a>
+          </ng-template>
+        </div>
       </mat-sidenav>
 
       <mat-sidenav-content class="overflow-hidden">
@@ -64,7 +88,11 @@ import { MenuItemModel } from '@core/models';
         </div>
         <div class="navigation__footer-holder">
           <div class="navigation__footer">
-            <a class="navigation__footer-item remove-link-styles" href="https://nomics.com" target="_blank">
+            <a
+              class="navigation__footer-item remove-link-styles"
+              href="https://nomics.com"
+              target="_blank"
+            >
               Crypto Market Cap & Pricing Data Provided By Nomics
             </a>
             <span>
@@ -120,5 +148,10 @@ export class NavigationComponent implements OnInit {
         this.progressValue += (100 - this.progressValue) * 0.2;
       }
     });
+  }
+
+  logOut(): void {
+    this.authService.logOut();
+    this.sidenav.close();
   }
 }

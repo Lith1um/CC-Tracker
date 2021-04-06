@@ -24,6 +24,7 @@ import { User } from '@auth/models';
           <mat-icon>account_circle</mat-icon>
         </ng-template>
       </button>
+
       <mat-menu #userMenu="matMenu" xPosition="before">
         <button mat-menu-item>
           <mat-icon>manage_accounts</mat-icon>
