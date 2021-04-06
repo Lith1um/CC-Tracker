@@ -18,7 +18,8 @@
     ],
     "paths": {
       "@auth/*": ["src/app/auth/*"],
-      "@core/*": ["src/app/core/*"]
+      "@core/*": ["src/app/core/*"],
+      "@profile/*": ["src/app/profile/*"]
     }
   },
   "angularCompilerOptions": {

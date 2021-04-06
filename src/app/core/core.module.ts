@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modules
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // env
 import { environment } from 'src/environments/environment';
@@ -41,6 +43,7 @@ import { ValueIncreasedPipe } from './pipes';
 @NgModule({
   imports: [
     RouterModule,
+    BrowserAnimationsModule,
     CommonModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
@@ -64,7 +67,8 @@ import { ValueIncreasedPipe } from './pipes';
     MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
   ],
   declarations: [
     CellPriceComponent,

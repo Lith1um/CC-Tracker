@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -22,7 +21,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
 
     BrowserModule,
-    BrowserAnimationsModule,
     HttpClientModule,
 
     // Custom Modules

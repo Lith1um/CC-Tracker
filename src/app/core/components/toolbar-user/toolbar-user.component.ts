@@ -26,10 +26,10 @@ import { User } from '@auth/models';
       </button>
 
       <mat-menu #userMenu="matMenu" xPosition="before">
-        <button mat-menu-item>
+        <a mat-menu-item routerLink="/app/profile">
           <mat-icon>manage_accounts</mat-icon>
           <span>Profile</span>
-        </button>
+        </a>
         <button mat-menu-item (click)="logOut.emit()">
           <mat-icon>logout</mat-icon>
           <span>Log out</span>

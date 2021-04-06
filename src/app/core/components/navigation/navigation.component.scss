@@ -30,16 +30,26 @@ $primary: mat-palette($mat-indigo, 500);
 
     &-item {
       &--active {
-        background-color: rgba(0,0,0,.08);
+        background: rgba(0,0,0,.08);
 
         &:hover {
-          background-color: rgba(0,0,0,.12);
+          background: rgba(0,0,0,.12);
+        }
+      }
+
+      &--disabled {
+        cursor: default !important;
+        color: rgba(0, 0, 0, 0.3);
+
+        &:hover {
+          background: none !important;
         }
       }
     }
 
     &-footer {
       position: absolute;
+      z-index: 1;
       bottom: 0;
       width: 100%;
       text-align: center;

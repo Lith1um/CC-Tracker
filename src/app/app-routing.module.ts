@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Components
 import { LoginComponent, RegisterComponent } from '@auth/components';
 import { CurrenciesTableComponent, HomeComponent, NavigationComponent } from '@core/components';
+import { ProfilePageComponent } from '@profile/components';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'markets',
         component: CurrenciesTableComponent
+      },
+      {
+        path: 'profile',
+        component: ProfilePageComponent
       }
     ]
   }

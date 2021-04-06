@@ -13,6 +13,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 
 // Services
 import { AuthService } from '@auth/services';
+import { getMenuItems } from '@core/services';
 
 // Models
 import { MenuItemModel } from '@core/models';
@@ -44,17 +45,30 @@ import { MenuItemModel } from '@core/models';
           <div mat-subheader>Pages</div>
           <ng-container *ngFor="let item of menuItems">
             <a
-              *ngIf="item.enabled"
+              *ngIf="!item.requiresLogin || !!authService.user; else disabled"
               mat-list-item
               class="navigation__menu-item"
               routerLinkActive="navigation__menu-item--active"
               [routerLinkActiveOptions]="{exact: true}"
-              [routerLink]="'/' + item.url"
+              [routerLink]="item.url"
               (click)="sidenav.close()"
             >
               <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
               <div mat-line>{{item.name}}</div>
             </a>
+
+            <ng-template #disabled>
+              <mat-list-item
+                #tooltip="matTooltip"
+                matTooltip="Log in to use this feature"
+                matTooltipPosition="right"
+                [disableRipple]="true"
+                class="navigation__menu-item--disabled"
+              >
+                <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+                <div mat-line>{{item.name}}</div>
+              </mat-list-item>
+            </ng-template>
           </ng-container>
         </mat-nav-list>
 
@@ -108,21 +122,7 @@ import { MenuItemModel } from '@core/models';
 export class NavigationComponent implements OnInit {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
-  menuItems: MenuItemModel[] = [
-    {
-      name: 'Home',
-      icon: 'home',
-      enabled: true,
-      url: 'app'
-    },
-    {
-      name: 'Markets',
-      icon: 'auto_graph',
-      enabled: true,
-      url: 'app/markets'
-    }
-  ];
-
+  menuItems: MenuItemModel[] = getMenuItems();
   progressValue = 0;
   showProgress = false;
 

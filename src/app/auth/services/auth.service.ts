@@ -19,10 +19,7 @@ import { User } from '@auth/models';
   providedIn: 'root'
 })
 export class AuthService {
-
-  get user(): User {
-    return JSON.parse(localStorage.getItem('user'));
-  }
+  user: User;
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -43,7 +40,6 @@ export class AuthService {
     const userDoc = this.afAuth.authState.pipe(
       switchMap((user: firebase.User): Observable<User> => {
         if (user) {
-          console.log(user);
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
@@ -54,13 +50,9 @@ export class AuthService {
     // Saving user data in local storage when
     // logged in and setting up null when logged out
     userDoc.subscribe((user: User) => {
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        JSON.parse(localStorage.getItem('user'));
-      } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
+      this.user = user;
+      localStorage.setItem('user', JSON.stringify(user));
+      JSON.parse(localStorage.getItem('user'));
     });
   }
 

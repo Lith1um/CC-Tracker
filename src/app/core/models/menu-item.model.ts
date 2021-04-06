@@ -1,6 +1,6 @@
 export interface MenuItemModel {
-  enabled: boolean;
   icon: string;
   name: string;
+  requiresLogin: boolean;
   url: string;
 }
