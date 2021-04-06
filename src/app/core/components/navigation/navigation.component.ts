@@ -10,12 +10,21 @@ import {
 
 // Material
 import { MatSidenav } from '@angular/material/sidenav';
+
+// Services
+import { AuthService } from '@auth/services';
+
+// Models
 import { MenuItemModel } from '@core/models';
 
 @Component({
   selector: 'cct-navigation',
   template: `
-    <cct-toolbar (toggleMenu)="sidenav.toggle()">
+    <cct-toolbar
+      [isLoggedIn]="authService.isLoggedIn"
+      [user]="authService.userData"
+      (toggleMenu)="sidenav.toggle()"
+      (logOut)="authService.logOut()">
     </cct-toolbar>
 
     <mat-progress-bar
@@ -89,7 +98,9 @@ export class NavigationComponent implements OnInit {
   progressValue = 0;
   showProgress = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public authService: AuthService) {}
 
   ngOnInit(): void {
     // handles faking a progress indicator whilst angular routing takes place

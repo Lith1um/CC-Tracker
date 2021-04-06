@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { AngularFireModule } from '@angular/fire';
-import { StoreModule } from '@ngrx/store';
 import { AgGridModule } from 'ag-grid-angular';
 
 // Material
@@ -15,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
@@ -32,7 +32,8 @@ import {
   CurrenciesTableComponent,
   HomeComponent,
   NavigationComponent,
-  ToolbarComponent
+  ToolbarComponent,
+  ToolbarUserComponent
 } from '@core/components';
 import { NomicsService } from './services';
 import { ValueIncreasedPipe } from './pipes';
@@ -43,8 +44,6 @@ import { ValueIncreasedPipe } from './pipes';
     CommonModule,
     // Firebase
     AngularFireModule.initializeApp(environment.firebase),
-
-    StoreModule.forRoot({}, {}),
 
     ReactiveFormsModule,
     FormlyModule.forRoot(),
@@ -58,6 +57,7 @@ import { ValueIncreasedPipe } from './pipes';
     MatDividerModule,
     MatIconModule,
     MatListModule,
+    MatMenuModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatRippleModule,
@@ -72,6 +72,7 @@ import { ValueIncreasedPipe } from './pipes';
     HomeComponent,
     NavigationComponent,
     ToolbarComponent,
+    ToolbarUserComponent,
 
     ValueIncreasedPipe
   ],
