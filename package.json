@@ -22,7 +22,6 @@
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
-    "@ngrx/store": "^11.0.1",
     "@ngx-formly/core": "^5.0.0",
     "@ngx-formly/material": "^5.0.0",
     "@ngx-formly/schematics": "^5.10.15",

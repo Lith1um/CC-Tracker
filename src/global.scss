@@ -25,3 +25,15 @@
 .remove-link-styles {
   color: inherit; /* blue colors for links too */
 }
+
+.button-group {
+  margin-top: 16px;
+
+  & > button {
+    margin-right: 16px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
